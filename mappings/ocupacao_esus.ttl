@@ -1,0 +1,54 @@
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix osus: <http://200.19.182.252/ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+########################
+# Codigo OCupacao ESUS #
+########################
+
+<#OcupacaoESUSTriplesMap> 
+	rr:logicalTable [
+		rr:sqlQuery """
+		SELECT 
+			co_cbo, no_cbo, no_cbo_filtro, co_cbo_2002
+		FROM esus_tb_cbo
+		"""
+	];
+
+	rr:subjectMap [
+		rr:class osus:OcupacaoESUS;
+		rr:template "http://200.19.182.252/resources/OcupacaoESUS#{co_cbo}";
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate osus:codigoOcupacaoESUS;
+		rr:objectMap [
+			rr:column '"co_cbo"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:nomeOcupacao;
+		rr:objectMap [
+			rr:column '"no_cbo"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:nomeOcupacaoFiltrado;
+		rr:objectMap [
+			rr:column '"no_cbo_filtro"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:CBOAssociado;
+		rr:objectMap [
+			rr:template "http://200.19.182.252/resources/CBO#{co_cbo_2002}";
+		];
+	];
+
+	.

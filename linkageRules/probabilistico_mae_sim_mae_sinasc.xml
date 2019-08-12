@@ -1,0 +1,64 @@
+<Silk>
+    <Prefixes>
+        <Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        <Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#"/>
+        <Prefix id="owl" namespace="http://www.w3.org/2002/07/owl#"/>
+        <Prefix id="osus" namespace="http://200.19.182.252/ontology#"/>
+    </Prefixes>
+
+    <DataSources>
+        <Dataset id="SINASC" type="file">
+            <Param name="file" value="../outputMappings/sinasc_mapping.nt"/>
+            <Param name="format" value="N-Triples"/>
+            <Param name="graph" value=""/>
+        </Dataset>
+
+        <Dataset id="SIM" type="file">
+            <Param name="file" value="../outputMappings/sim_mapping.nt"/>
+            <Param name="format" value="N-Triples"/>
+            <Param name="graph" value=""/>
+        </Dataset>
+    </DataSources>
+
+    <Interlinks>
+        <Interlink id="probabilistico_mae_sim_mae_sinasc">
+            <SourceDataset dataSource="SINASC" var="a" typeUri="http://200.19.182.252/ontology#Mae">
+                <RestrictTo></RestrictTo>
+            </SourceDataset>
+
+            <TargetDataset dataSource="SIM" var="b" typeUri="http://200.19.182.252/ontology#Mae">
+                <RestrictTo></RestrictTo>
+            </TargetDataset>
+
+            <LinkageRule linkType="owl:sameAs">
+                <Aggregate id="SimiliridadeFinal" required="true" weight="1" type="average">
+                    <Compare id="ComparaNomeJaro" required="true" weight="2" metric="jaroWinkler" threshold="2.0" indexing="true">
+                        <Input id="sourcePath4" path="/osus:nomeCompleto"/>
+                        <Input id="targetPath4" path="/osus:nomeCompleto"/>
+                    </Compare>
+                </Aggregate>
+
+                <Filter limit="1"/>
+            </LinkageRule>
+        </Interlink>
+    </Interlinks>
+
+    <Transforms></Transforms>
+
+    <Outputs>
+        <Output id="Output_accepted" type="file" minConfidence="0.98">
+        <Param name="file" value="../outputLinkageRules/probabilistico_mae_sim_mae_sinasc_accepted.nt"/>
+        <Param name="format" value="N-Triples"/>
+        <Param name="graph" value=""/>
+    </Output>
+
+    <Output id="Output_verify" type="file" minConfidence="0.93" maxConfidence="0.97">
+        <Param name="file" value="../outputLinkageRules/probabilistico_mae_sim_mae_sinasc_to_verify.nt"/>
+        <Param name="format" value="N-Triples"/>
+        <Param name="graph" value=""/>
+    </Output>
+    </Outputs>
+</Silk>
+
+
+    

@@ -1,0 +1,71 @@
+<Silk>
+    <Prefixes>
+      <Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      <Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#"/>
+      <Prefix id="owl" namespace="http://www.w3.org/2002/07/owl#"/>
+      <Prefix id="osus" namespace="http://200.19.182.252/ontology#"/>
+    </Prefixes>
+
+    <DataSources>
+      <Dataset id="SIM" type="file">
+        <Param name="file" value="../outputMappings/sim_mapping.nt"/>
+        <Param name="format" value="N-Triples"/>
+        <Param name="graph" value=""/>
+      </Dataset>
+
+      <Dataset id="ESUS" type="file">
+        <Param name="file" value="../outputMappings/esus_mapping.nt"/>
+        <Param name="format" value="N-Triples"/>
+        <Param name="graph" value=""/>
+      </Dataset>
+    </DataSources>
+        
+    <Interlinks>
+      <Interlink id="probabilistico_pessoa_fisica_morta">
+        <SourceDataset dataSource="SIM" var="a" typeUri="http://200.19.182.252/ontology#PessoaMorta">
+          <RestrictTo></RestrictTo>
+        </SourceDataset>
+
+        <TargetDataset dataSource="ESUS" var="b" typeUri="http://200.19.182.252/ontology#PessoaFisica">
+          <RestrictTo></RestrictTo>
+        </TargetDataset>
+
+        <LinkageRule linkType="owl:sameAs">
+          <Aggregate id="SimiliridadeFinal" required="true" weight="1" type="average">
+            <Compare id="ComparaNomeJaro" required="true" weight="2" metric="jaroWinkler" threshold="2.0" indexing="true">
+                <Input id="sourcePath4" path="/osus:nomeCompleto"/>
+                <Input id="targetPath4" path="/osus:nomeCompleto"/>
+            </Compare>
+
+            <Compare id="ComparaDataDeNascimento" required="true" weight="2" metric="equality" threshold="0.0" indexing="true">
+                <Input id="sourcePath3" path="/osus:dataNascimento"/>
+                <Input id="targetPath3" path="/osus:dataNascimento"/>
+            </Compare>
+
+            <Compare id="ComparaSexo" required="false" weight="1" metric="equality" threshold="0.0" indexing="true">
+                <Input id="sourcePath2" path="/osus:sexoBiologico"/>
+                <Input id="targetPath2" path="/osus:sexoBiologico"/>
+            </Compare>
+          </Aggregate>
+
+          <Filter limit="1"/>
+        </LinkageRule>
+      </Interlink>
+    </Interlinks>
+
+    <Transforms> </Transforms>
+
+    <Outputs>
+        <Output id="Output_accepted" type="file" minConfidence="0.98">
+            <Param name="file" value="../outputLinkageRules/probabilistico_pessoa_fisica_morta_accepted.nt"/>
+            <Param name="format" value="N-Triples"/>
+            <Param name="graph" value=""/>
+        </Output>
+
+        <Output id="Output_verify" type="file" minConfidence="0.93" maxConfidence="0.97">
+            <Param name="file" value="../outputLinkageRules/probabilistico_pessoa_fisica_morta_to_verify.nt"/>
+            <Param name="format" value="N-Triples"/>
+            <Param name="graph" value=""/>
+        </Output>
+    </Outputs>
+</Silk>

@@ -1,0 +1,807 @@
+@prefix : <http://200.19.182.252/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://200.19.182.252/ontology> .
+
+<http://200.19.182.252/ontology> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://200.19.182.252/ontology#osus:CBOAssociado
+:osus:CBOAssociado rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:apgarNoPrimeiroMinuto
+:osus:apgarNoPrimeiroMinuto rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:apgarNoPrimeiroMinutoCategoria
+:osus:apgarNoPrimeiroMinutoCategoria rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:apgarNoQuintoMinuto
+:osus:apgarNoQuintoMinuto rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:apgarNoQuintoMinutoCategoria
+:osus:apgarNoQuintoMinutoCategoria rdf:type owl:ObjectProperty ;
+                                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:atestanteDoObito
+:osus:atestanteDoObito rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:capitalDe
+:osus:capitalDe rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:causaDoObito
+:osus:causaDoObito rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:cns
+:osus:cns rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoClassificacaoApgar
+:osus:codigoClassificacaoApgar rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoEstadoCivil
+:osus:codigoEstadoCivil rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoGrupoRobson
+:osus:codigoGrupoRobson rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoIBGE
+:osus:codigoIBGE rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoIBGE-6Digitos
+:osus:codigoIBGE-6Digitos rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :osus:codigoIBGE .
+
+
+###  http://200.19.182.252/ontology#osus:codigoIBGE-7Digitos
+:osus:codigoIBGE-7Digitos rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :osus:codigoIBGE .
+
+
+###  http://200.19.182.252/ontology#osus:codigoOcupacaoESUS
+:osus:codigoOcupacaoESUS rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoPergunta
+:osus:codigoPergunta rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoRacaCor
+:osus:codigoRacaCor rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoResposta
+:osus:codigoResposta rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoSubcategoriaCID10
+:osus:codigoSubcategoriaCID10 rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTempoGestacao
+:osus:codigoTempoGestacao rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTipoApresentacao
+:osus:codigoTipoApresentacao rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTipoAssistenciaAoNascimento
+:osus:codigoTipoAssistenciaAoNascimento rdf:type owl:ObjectProperty ;
+                                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTipoGravidez
+:osus:codigoTipoGravidez rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTipoMorteNaoNatural
+:osus:codigoTipoMorteNaoNatural rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTipoObito
+:osus:codigoTipoObito rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTipoOcorrenciaNascimento
+:osus:codigoTipoOcorrenciaNascimento rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTipoOcorrenciaObito
+:osus:codigoTipoOcorrenciaObito rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:codigoTipoParto
+:osus:codigoTipoParto rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:contato
+:osus:contato rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:crm
+:osus:crm rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:dataAtestadoObito
+:osus:dataAtestadoObito rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:dataNascimento
+:osus:dataNascimento rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:dataObito
+:osus:dataObito rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:dataUltimaMenstruacao
+:osus:dataUltimaMenstruacao rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:descricao
+:osus:descricao rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:descricaoAbreviadaSubcategoriaCID10
+:osus:descricaoAbreviadaSubcategoriaCID10 rdf:type owl:ObjectProperty ;
+                                          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:descricaoDaMorte
+:osus:descricaoDaMorte rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:descricaoSubcategoriaCID10
+:osus:descricaoSubcategoriaCID10 rdf:type owl:ObjectProperty ;
+                                 rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:estadoCivil
+:osus:estadoCivil rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:foiAcidenteDeTrabalho
+:osus:foiAcidenteDeTrabalho rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:fonteInformacao
+:osus:fonteInformacao rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:gestacao
+:osus:gestacao rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:gestante
+:osus:gestante rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:grupoDeRobson
+:osus:grupoDeRobson rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:horaNascimento
+:osus:horaNascimento rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:horaObito
+:osus:horaObito rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:houveCirurgiaQueConfirmaDiagnostico
+:osus:houveCirurgiaQueConfirmaDiagnostico rdf:type owl:ObjectProperty ;
+                                          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:houveExameCompQueConfirmaDiagnostico
+:osus:houveExameCompQueConfirmaDiagnostico rdf:type owl:ObjectProperty ;
+                                           rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:houveNecropsiaQueConfirmaDiagnostico
+:osus:houveNecropsiaQueConfirmaDiagnostico rdf:type owl:ObjectProperty ;
+                                           rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:informacoesNascimento
+:osus:informacoesNascimento rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelClassificacaoApgar
+:osus:labelClassificacaoApgar rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelEstadoCivil
+:osus:labelEstadoCivil rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelGrupoRobson
+:osus:labelGrupoRobson rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelRacaCor
+:osus:labelRacaCor rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTempoGestacao
+:osus:labelTempoGestacao rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTipoApresentacao
+:osus:labelTipoApresentacao rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTipoAssistenciaAoNascimento
+:osus:labelTipoAssistenciaAoNascimento rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTipoGravidez
+:osus:labelTipoGravidez rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTipoMorteNaoNatural
+:osus:labelTipoMorteNaoNatural rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTipoObito
+:osus:labelTipoObito rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTipoOcorrenciaNascimento
+:osus:labelTipoOcorrenciaNascimento rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTipoOcorrenciaObito
+:osus:labelTipoOcorrenciaObito rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:labelTipoParto
+:osus:labelTipoParto rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:localOcorrencia
+:osus:localOcorrencia rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:mesDeGestacaoInicioPrenatal
+:osus:mesDeGestacaoInicioPrenatal rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:municipioDeNascimento
+:osus:municipioDeNascimento rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:nascimento
+:osus:nascimento rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:nomeCompleto
+:osus:nomeCompleto rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:nomeDoMedico
+:osus:nomeDoMedico rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:nomeDoMunicipio
+:osus:nomeDoMunicipio rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:nomeDoPai
+:osus:nomeDoPai rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:nomeOcupacao
+:osus:nomeOcupacao rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:nomeOcupacaoFiltrado
+:osus:nomeOcupacaoFiltrado rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:nomeUF
+:osus:nomeUF rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:numeroCadastro
+:osus:numeroCadastro rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:numeroDeclaracaoDeNascidoVivo
+:osus:numeroDeclaracaoDeNascidoVivo rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:numeroDeclaracaoDeObito
+:osus:numeroDeclaracaoDeObito rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:obito
+:osus:obito rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:parto
+:osus:parto rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:partoInduzido
+:osus:partoInduzido rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:pergunta
+:osus:pergunta rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:possuiCDSCadastro
+:osus:possuiCDSCadastro rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:recebeuAssistenciaMedica
+:osus:recebeuAssistenciaMedica rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:respondeu
+:osus:respondeu rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:resposta
+:osus:resposta rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:respostaPara
+:osus:respostaPara rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:resticaoDeSexoSubcategoriaCID10
+:osus:resticaoDeSexoSubcategoriaCID10 rdf:type owl:ObjectProperty ;
+                                      rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:resultouEmMorteDaMae
+:osus:resultouEmMorteDaMae rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:sexoBiologico
+:osus:sexoBiologico rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:siglaUF
+:osus:siglaUF rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:situacaoSubCategoriaCID10
+:osus:situacaoSubCategoriaCID10 rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:snapshotDe
+:osus:snapshotDe rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:statusDaCesareaNoParto
+:osus:statusDaCesareaNoParto rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:temEstadoCivil
+:osus:temEstadoCivil rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:temMae
+:osus:temMae rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:temMalFormacao
+:osus:temMalFormacao rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:temOcupacao
+:osus:temOcupacao rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:temRacaCor
+:osus:temRacaCor rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:teveAssistenciaDe
+:osus:teveAssistenciaDe rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoApresentacao
+:osus:tipoApresentacao rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoDaMorteNoPuerperio
+:osus:tipoDaMorteNoPuerperio rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoGravidez
+:osus:tipoGravidez rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoMedico
+:osus:tipoMedico rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoMorteDoFilhoNoParto
+:osus:tipoMorteDoFilhoNoParto rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoMorteNaoNatural
+:osus:tipoMorteNaoNatural rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoObito
+:osus:tipoObito rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoOcorrencia
+:osus:tipoOcorrencia rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:tipoParto
+:osus:tipoParto rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:unidadeFederativa
+:osus:unidadeFederativa rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://200.19.182.252/ontology#osus:causaDoObitoBasica,_osus:causaDoObito
+<http://200.19.182.252/ontology#osus:causaDoObitoBasica,_osus:causaDoObito> rdf:type owl:ObjectProperty ;
+                                                                            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://200.19.182.252/ontology#osus:idade
+:osus:idade rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:idadeDoPai
+:osus:idadeDoPai rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:latitude
+:osus:latitude rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:longitude
+:osus:longitude rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:numeroConsultasPrenatal
+:osus:numeroConsultasPrenatal rdf:type owl:DatatypeProperty ;
+                              rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:numeroDeSemanasDaGestacao
+:osus:numeroDeSemanasDaGestacao rdf:type owl:DatatypeProperty ;
+                                rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:numeroEscolaridade
+:osus:numeroEscolaridade rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:pesoAoNascerEmGramas
+:osus:pesoAoNascerEmGramas rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadeDiasVividos
+:osus:quantidadeDiasVividos rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadeGestacoesAnteriores
+:osus:quantidadeGestacoesAnteriores rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadeNascidosMortos
+:osus:quantidadeNascidosMortos rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadeNascidosMortosDaMae
+:osus:quantidadeNascidosMortosDaMae rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadeNascidosVivos
+:osus:quantidadeNascidosVivos rdf:type owl:DatatypeProperty ;
+                              rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadeNascidosVivosDaMae
+:osus:quantidadeNascidosVivosDaMae rdf:type owl:DatatypeProperty ;
+                                   rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadePartosCesareas
+:osus:quantidadePartosCesareas rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadePartosNormais
+:osus:quantidadePartosNormais rdf:type owl:DatatypeProperty ;
+                              rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://200.19.182.252/ontology#osus:quantidadePerdasFetaisOuAbortos
+:osus:quantidadePerdasFetaisOuAbortos rdf:type owl:DatatypeProperty ;
+                                      rdfs:subPropertyOf owl:topDataProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://200.19.182.252/ontology#osus:CDSCadastro
+:osus:CDSCadastro rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Capital
+:osus:Capital rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:ClassificacaoApgar
+:osus:ClassificacaoApgar rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:DescricaoObito
+:osus:DescricaoObito rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:EstadoCivil
+:osus:EstadoCivil rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Filho
+:osus:Filho rdf:type owl:Class ;
+            rdfs:subClassOf :osus:Pessoa .
+
+
+###  http://200.19.182.252/ontology#osus:Gestacao
+:osus:Gestacao rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:GrupoRobson
+:osus:GrupoRobson rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:LocalOcorrenciaNascimento
+:osus:LocalOcorrenciaNascimento rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:LocalOcorrenciaObito
+:osus:LocalOcorrenciaObito rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Mae
+:osus:Mae rdf:type owl:Class ;
+          rdfs:subClassOf :osus:Pessoa .
+
+
+###  http://200.19.182.252/ontology#osus:MaeSnapshot
+:osus:MaeSnapshot rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Medico
+:osus:Medico rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Municipio
+:osus:Municipio rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Nascimento
+:osus:Nascimento rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Obito
+:osus:Obito rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:OcupacaoESUS
+:osus:OcupacaoESUS rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Parto
+:osus:Parto rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:PerguntaPessoaFisica
+:osus:PerguntaPessoaFisica rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:Pessoa
+:osus:Pessoa rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:PessoaFisica
+:osus:PessoaFisica rdf:type owl:Class ;
+                   rdfs:subClassOf :osus:Pessoa .
+
+
+###  http://200.19.182.252/ontology#osus:PessoaMorta
+:osus:PessoaMorta rdf:type owl:Class ;
+                  rdfs:subClassOf :osus:Pessoa .
+
+
+###  http://200.19.182.252/ontology#osus:RacaCor
+:osus:RacaCor rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:RespostaPessoaFisica
+:osus:RespostaPessoaFisica rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:SubcategoriaCID10
+:osus:SubcategoriaCID10 rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TempoGestacao
+:osus:TempoGestacao rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TipoApresentacao
+:osus:TipoApresentacao rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TipoAssistenciaAoNascimento
+:osus:TipoAssistenciaAoNascimento rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TipoGravidez
+:osus:TipoGravidez rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TipoMorteNaoNatural
+:osus:TipoMorteNaoNatural rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TipoObito
+:osus:TipoObito rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TipoOcorrenciaNascimento
+:osus:TipoOcorrenciaNascimento rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TipoOcorrenciaObito
+:osus:TipoOcorrenciaObito rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:TipoParto
+:osus:TipoParto rdf:type owl:Class .
+
+
+###  http://200.19.182.252/ontology#osus:UnidadeFederativa
+:osus:UnidadeFederativa rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

@@ -1,0 +1,197 @@
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix osus: <http://200.19.182.252/ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+#################
+# PESSOA FISICA #
+#################
+
+<#PessoaFisicaTriplesMap> 
+	rr:logicalTable [
+		rr:sqlQuery """
+		SELECT 
+			dt_nascimento::date, 
+			co_estado_civil, 
+			co_raca_cor, 
+			co_cbo, 
+			no_pessoa_fisica_filtro as nome, 
+			nu_cns, 
+			(date(dt_nascimento) || no_pessoa_fisica_filtro) as key,
+			CASE 
+				WHEN co_sexo = 0 THEN 'M'
+				WHEN co_sexo = 1 THEN 'F'
+				WHEN co_sexo = 2 THEN 'A'
+				ELSE 'Ignorado'
+			END as sexo
+		FROM esus_tb_pessoa_fisica
+		WHERE nu_cns IS NOT NULL and nu_cns <> ''
+		"""
+	];
+
+	rr:subjectMap [
+		rr:class osus:PessoaFisica, osus:Pessoa;
+		rr:template "http://200.19.182.252/resources/PessoaFisica#{nu_cns}";
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:cns;
+		rr:objectMap [
+			rr:column '"nu_cns"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:nomeCompleto;
+		rr:objectMap [
+			rr:column '"nome"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:dataNascimento;
+		rr:objectMap [
+			rr:column '"dt_nascimento"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:sexoBiologico;
+		rr:objectMap [
+			rr:column '"sexo"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:temRacaCor;
+		rr:objectMap [
+			rr:template "http://200.19.182.252/resources/RacaCor#{co_raca_cor}";
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:temEstadoCivil;
+		rr:objectMap [
+			rr:template "http://200.19.182.252/resources/EstadoCivil#{co_estado_civil}";
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:temOcupacao;
+		rr:objectMap [
+			rr:template "http://200.19.182.252/resources/OcupacaoESUS#{co_cbo}";
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:possuiCDSCadastro;
+		rr:objectMap [
+			rr:template "http://200.19.182.252/resources/CDSCadastro#{key}";
+		];
+	];
+	.
+################
+# CDS CADASTRO #
+################
+
+<#CDSCadastroFisicaTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT  co_seq_cds_cad_individual as num_cad, 
+			(date(dt_nascimento) || no_cidadao_filtro) as key, 
+			co_seq_cds_cidadao_resposta as cod_resp
+			
+			FROM esus_tb_cds_cad_individual 
+			INNER JOIN esus_tb_cds_cidadao_resposta ON (co_seq_cds_cad_individual = co_cds_cad_individual)
+			
+			WHERE co_seq_cds_cad_individual IS NOT NULL and ds_resposta IS NOT NULL and ds_resposta <> ''
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:CDSCadastro;
+    	rr:template "http://200.19.182.252/resources/CDSCadastro#{key}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:numeroCadastro;
+        rr:objectMap [ rr:column '"num_cad"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:respondeu;
+        rr:objectMap [ 
+        	rr:template "http://200.19.182.252/resources/Resposta#{cod_resp}";
+        ];
+    ];
+    .
+
+
+############
+# PERGUNTA #
+############
+
+<#PerguntaPessoaFisicaTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT (pa.ds_pergunta || ' ' || p.ds_pergunta) as pergunta,  p.co_seq_pergunta as cod_pergunta
+			FROM esus_tb_pergunta p
+			INNER JOIN esus_tb_pergunta pa ON (pa.co_seq_pergunta = p.co_pergunta_pai)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:PerguntaPessoaFisica;
+    	rr:template "http://200.19.182.252/resources/Pergunta#{cod_pergunta}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoPergunta;
+        rr:objectMap [ rr:column '"cod_pergunta"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:pergunta;
+        rr:objectMap [ rr:column '"pergunta"'; ];
+    ];
+
+    .
+
+############
+# RESPOSTA #
+############
+
+<#RespostaPessoaFisicaTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT ds_resposta, co_pergunta, co_seq_cds_cidadao_resposta, co_cds_cad_individual
+			FROM esus_tb_cds_cidadao_resposta
+			WHERE ds_resposta IS NOT NULL and ds_resposta <> ''
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:RespostaPessoaFisica;
+    	rr:template "http://200.19.182.252/resources/Resposta#{co_seq_cds_cidadao_resposta}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoResposta;
+        rr:objectMap [ rr:column '"co_seq_cds_cidadao_resposta"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:resposta;
+        rr:objectMap [ rr:column '"ds_resposta"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:respostaPara;
+        rr:objectMap [ 
+        	rr:template "http://200.19.182.252/resources/Pergunta#{co_pergunta}";
+        ];
+    ];
+
+    .

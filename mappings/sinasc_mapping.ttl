@@ -1,0 +1,730 @@
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix osus: <http://200.19.182.252/ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+###Lista de Templates
+## osus:Filho -> http://200.19.182.252/resources/Filho#{nu_dn}
+## osus:MaeSnapshot -> http://200.19.182.252/resources/MaeSnapshot#{nu_dn}
+## osus:Mae -> http://200.19.182.252/resources/Mae#{nu_dn}
+## osus:Nascimento -> http://200.19.182.252/resources/Nascimento#{nu_dn}
+## osus:Ocupacao -> http://200.19.182.252/resources/Ocupacao#{co_cbo}
+## osus:Gestacao -> http://200.19.182.252/resources/Gestacao#{nu_dn}
+## osus:Parto -> http://200.19.182.252/resources/Parto#{nu_dn}
+
+#########
+# FILHO #
+#########
+
+<#FilhoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+		SELECT
+			MD5('sinasc' || retira_acentuacao(no_mae) || dt_nascimento::date || nu_dn) as crypto_key,
+			
+			nu_dn,
+
+			case 
+				when tp_raca_cor not in ('1', '2', '3','4', '5') then null
+				else tp_raca_cor
+			end as tp_raca_cor,
+
+			case 
+				when co_municipio_ibge = '' then null
+				else co_municipio_ibge
+			end as co_municipio_ibge,
+			
+			case 
+				when no_recem_nascido = '' then null
+				else no_recem_nascido 
+			end as no_recem_nascido,
+			
+			dt_nascimento::date, 
+			
+			hr_nascimento, 
+			
+			case 
+				when sg_sexo = 'M' then 'Masculino'
+				when sg_sexo = 'F' then 'Feminino'
+				else NULL 
+			end as sg_sexo, 
+			
+			retira_acentuacao(no_mae) as no_mae, 
+			
+			dt_nascimento_mae::date, 
+			
+			case 
+				when no_pai = '' then null
+				else no_pai
+			end as no_pai, 
+			
+			case 
+				when nu_idade_pai = 0 then null
+				else nu_idade_pai
+			end as nu_idade_pai
+
+		FROM
+			sinasc_tb_dn
+
+		WHERE
+			dt_nascimento is not null and nu_dn is not null and trim(no_mae) != '' and no_mae is not null
+		"""
+	] ;
+    rr:subjectMap [
+    	rr:class osus:Filho, osus:Pessoa;
+    	rr:template "http://200.19.182.252/resources/Filho#{crypto_key}";
+    ];
+
+    rr:predicateObjectMap [
+		rr:predicate osus:municipioDeNascimento;
+		rr:objectMap [
+			rr:template "http://200.19.182.252/resources/Municipio#{co_municipio_ibge}";
+		];
+	];
+
+	rr:predicateObjectMap [
+        rr:predicate osus:temMae;
+        rr:objectMap [ 
+        	rr:template "http://200.19.182.252/resources/MaeSnapshot#{crypto_key}" 
+        ];
+    ];
+
+	rr:predicateObjectMap [
+        rr:predicate osus:informacoesNascimento;
+        rr:objectMap [
+            rr:template "http://200.19.182.252/resources/Nascimento#{crypto_key}"
+        ];
+   ];
+
+   	rr:predicateObjectMap [
+        rr:predicate osus:temRacaCor;
+        rr:objectMap [
+            rr:template "http://200.19.182.252/resources/RacaCor#{tp_raca_cor}"
+        ];
+   ];
+
+	rr:predicateObjectMap [
+        rr:predicate osus:dataNascimento;
+        rr:objectMap [ 
+        	rr:column '"dt_nascimento"'; 
+        	rr:datatype xsd:date;
+        ];
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:horaNascimento;
+        rr:objectMap [ rr:column '"hr_nascimento"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:sexoBiologico;
+        rr:objectMap [ rr:column '"sg_sexo"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:numeroDeclaracaoDeNascidoVivo;
+        rr:objectMap [ rr:column '"nu_dn"'; ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate osus:nomeDoPai;
+        rr:objectMap [ rr:column '"no_pai"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:idadeDoPai;
+        rr:objectMap [ rr:column '"nu_idade_pai"'; ];
+        rr:datatype xsd:integer;
+    ];
+
+    .
+
+################
+# MAE SNAPSHOT #
+################
+
+# TP_ESTADO_CIVIL: 1–Solteira, 2–Casada, 3–Viúva, 4–Separada judicialmente/divorciada, 5– União estável, 9– Ignorada
+
+<#MaeSnapshotTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+		SELECT
+			MD5('sinasc' || retira_acentuacao(no_mae) || dt_nascimento::date || nu_dn) as crypto_key,
+
+			case 
+				when nu_serie_escolaridade_mae = 9 then null
+				else nu_serie_escolaridade_mae
+			end as nu_serie_escolaridade_mae,
+
+			case 
+				when co_ocupacao = 0 then null
+				else co_ocupacao
+			end as co_ocupacao, 
+			
+			case 
+				when nu_idade = 0 then null
+				else nu_idade
+			end as nu_idade, 
+
+			case 
+				when qt_gestacao_anterior = 99 then null
+				else qt_gestacao_anterior
+			end as qt_gestacao_anterior,
+
+			case 
+				when qt_parto_normal = 99 then null
+				else qt_parto_normal
+			end as qt_parto_normal,			
+
+			case 
+				when qt_parto_cesarea = 99 then null
+				else qt_parto_cesarea
+			end as qt_parto_cesarea,
+
+			case
+				when qt_nascidos_vivos = 99 then null
+				else qt_nascidos_vivos
+			end as qt_nascidos_vivos, 
+			
+			case
+				when qt_nascidos_mortos = 99 then null
+				else qt_nascidos_mortos
+			end as qt_nascidos_mortos,
+
+			case
+				when qt_perdafetal_aborto = 99 then null
+				else qt_perdafetal_aborto
+			end as qt_perdafetal_aborto,
+			
+			retira_acentuacao(no_mae) as no_mae, 
+			
+			nu_dn, 			
+			
+			case 
+				when tp_estado_civil not in ('1', '2', '3', '4', '5') then null
+				else tp_estado_civil 
+			end as tp_estado_civil,
+
+			case 
+				when tp_grupo_robson in ('1', '2', '3', '4','5', '6', '7', '8', '9', '10') then tp_grupo_robson
+				else null
+			end as tp_grupo_robson
+			
+		FROM
+			sinasc_tb_dn
+			
+		WHERE
+			dt_nascimento is not null and nu_dn is not null and trim(no_mae) != '' and no_mae is not null
+		"""
+	] ;
+    rr:subjectMap [
+    	rr:class osus:MaeSnapshot;
+    	rr:template "http://200.19.182.252/resources/MaeSnapshot#{crypto_key}";
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:idade;
+        rr:objectMap [ 
+        	rr:column '"nu_idade"'; 
+        	rr:datatype xsd:integer;
+        ];
+    ];
+
+
+    rr:predicateObjectMap [
+        rr:predicate osus:quantidadeGestacoesAnteriores;
+        rr:objectMap [ 
+        	rr:column '"qt_gestacao_anterior"'; 
+        	rr:datatype xsd:integer;
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate osus:quantidadePartosNormais;
+        rr:objectMap [ 
+        	rr:column '"qt_parto_normal"'; 
+        	rr:datatype xsd:integer;
+        ];
+    ];
+    
+    rr:predicateObjectMap [
+        rr:predicate osus:quantidadePartosCesareas;
+        rr:objectMap [ 
+	        rr:column '"qt_parto_cesarea"'; 
+	        rr:datatype xsd:integer;
+        ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:quantidadeNascidosVivos;
+        rr:objectMap [ 
+        	rr:column '"qt_nascidos_vivos"';
+       		rr:datatype xsd:integer; 
+
+        ];
+    ];
+	
+    rr:predicateObjectMap [
+        rr:predicate osus:quantidadeNascidosMortos;
+        rr:objectMap [ 
+        	rr:column '"qt_nascidos_mortos"'; 
+        	rr:datatype xsd:integer;
+        ];
+    ];
+	
+    rr:predicateObjectMap [
+        rr:predicate osus:quantidadePerdasFetaisOuAbortos;
+        rr:objectMap [ 
+        	rr:column '"qt_nascidos_mortos"'; 
+        	rr:datatype xsd:integer;
+
+        ];
+    ];
+   
+    rr:predicateObjectMap [
+        rr:predicate osus:snapshotDe;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/Mae#{crypto_key}" ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:gestacao;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/Gestacao#{crypto_key}" ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:temOcupacao;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/OcupacaoESUS#{co_ocupacao}" ];
+    ]; 
+
+    # TODO: nu_serie_escolaridade_mae está com uma definição ruim
+    rr:predicateObjectMap [
+        rr:predicate osus:numeroEscolaridade;
+        rr:objectMap [ 
+        	rr:column '"nu_serie_escolaridade_mae"';
+        	rr:datatype xsd:integer;
+        ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:estadoCivil;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/EstadoCivil#{tp_estado_civil}" ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:grupoDeRobson;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/GrupoRobson#{tp_grupo_robson}" ];
+    ];
+		
+  	.
+
+#######
+# MAE #
+#######
+
+<#MaeTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+		SELECT
+			MD5('sinasc' || retira_acentuacao(no_mae) || dt_nascimento::date || nu_dn) as crypto_key,
+
+			retira_acentuacao(no_mae) as no_mae, 
+
+			dt_nascimento_mae::date, 
+
+			case 
+				when nu_cartao_sus = '' then null
+				else nu_cartao_sus 
+			end as nu_cartao_sus, 
+
+			case 
+				when tp_raca_cor_mae not in ('1', '2', '3', '4', '5') then null
+				else tp_raca_cor_mae
+			end as tp_raca_cor_mae
+
+		FROM
+			sinasc_tb_dn
+		WHERE
+			dt_nascimento is not null and nu_dn is not null and trim(no_mae) != '' and no_mae is not null
+		"""
+	] ;
+	## TODO: Esse template tá certo? 
+    rr:subjectMap [
+    	rr:class osus:Mae, osus:Pessoa;
+    	rr:template "http://200.19.182.252/resources/Mae#{crypto_key}";
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:nomeCompleto;
+        rr:objectMap [ rr:column '"no_mae"'; ];
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:dataNascimento;
+        rr:objectMap [ 
+        	rr:column '"dt_nascimento_mae"'; 
+        	rr:datatype xsd:date;
+
+        ];
+    ];	
+# TODO: Ver depois
+    rr:predicateObjectMap [
+        rr:predicate osus:cns;
+        rr:objectMap [ rr:column '"nu_cartao_sus"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:temRacaCor;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/RacaCor#{tp_raca_cor_mae}" ];
+    ];  
+		
+  	.
+
+
+############
+# GESTACAO #
+############
+
+<#GestacaoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+		SELECT 
+			MD5('sinasc' || retira_acentuacao(no_mae) || dt_nascimento::date || nu_dn) as crypto_key,
+			
+			nu_dn, 
+
+			case 
+				when nu_semana_gestacao = 99 or nu_semana_gestacao is null then null
+				else nu_semana_gestacao
+			end as nu_semana_gestacao, 
+
+			dt_ultima_menstruacao::date, 
+
+			case 
+				when nu_mes_gestacao_prenatal = 99 or nu_mes_gestacao_prenatal is null then null
+				else nu_mes_gestacao_prenatal
+			end as nu_mes_gestacao_prenatal, 
+			case 
+				when nu_consulta_prenatal = 99 or nu_consulta_prenatal is null then null
+				else nu_consulta_prenatal
+			end as nu_consulta_prenatal,
+				
+			CASE 
+				WHEN tp_gravidez not in ('1', '2', '3')  then null
+				ELSE tp_gravidez
+			END as tp_gravidez,
+
+			CASE 
+				WHEN tp_gestacao not in ('1', '2', '3', '4', '5', '6')  then null
+				ELSE tp_gestacao
+			END as tp_gestacao
+		FROM 
+			sinasc_tb_dn
+		WHERE 
+			dt_nascimento is not null and nu_dn is not null and trim(no_mae) != '' and no_mae is not null
+
+		"""
+	];
+	rr:subjectMap [
+		rr:class osus:Gestacao;
+		rr:template "http://200.19.182.252/resources/Gestacao#{crypto_key}";
+	];
+	
+	rr:predicateObjectMap [
+			rr:predicate osus:numeroDeSemanasDaGestacao;
+			rr:objectMap [ 
+				rr:column '"nu_semana_gestacao"'; 
+				rr:datatype xsd:integer;
+			];
+	];
+	
+	rr:predicateObjectMap [
+			rr:predicate osus:dataUltimaMenstruacao;
+			rr:objectMap [ 
+				rr:column '"dt_ultima_menstruacao"'; 
+				rr:datatype xsd:date;
+			];
+	];
+	
+	rr:predicateObjectMap [
+			rr:predicate osus:mesDeGestacaoInicioPrenatal;
+			rr:objectMap [ 
+				rr:column '"nu_mes_gestacao_prenatal"'; 
+				rr:datatype xsd:integer;
+			];
+	];
+
+	rr:predicateObjectMap [
+			rr:predicate osus:numeroConsultasPrenatal;
+			rr:objectMap [ 
+				rr:column '"nu_consulta_prenatal"'; 
+				rr:datatype xsd:integer;
+			];
+	];
+
+	rr:predicateObjectMap [
+        rr:predicate osus:gestante;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/MaeSnapshot#{crypto_key}" ];
+    ];
+	
+    rr:predicateObjectMap [
+		rr:predicate osus:tipoGravidez;
+		rr:objectMap [ rr:template "http://200.19.182.252/resources/TipoGravidez#{tp_gravidez}"];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:tempoGestacao;
+		rr:objectMap [ rr:template "http://200.19.182.252/resources/TempoGestacao#{tp_gestacao}"];
+	];
+
+	rr:predicateObjectMap [
+        rr:predicate osus:parto;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/Parto#{crypto_key}" ];
+    ];
+	.
+
+
+###############################
+# LOCAL OCORRENCIA NASCIMENTO #
+###############################
+
+<#LocalOcorrenciaNascimentoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+		SELECT 
+			MD5('sinasc' || retira_acentuacao(no_mae) || dt_nascimento::date || nu_dn) as crypto_key,
+
+			case 
+				when tp_ocorrencia not in ('1', '2', '3', '4') then null
+				else tp_ocorrencia
+			end as tp_ocorrencia
+
+		FROM 
+			sinasc_tb_dn
+		WHERE 
+			dt_nascimento is not null and nu_dn is not null and trim(no_mae) != '' and no_mae is not null
+		"""
+	];
+
+	rr:subjectMap [
+		rr:class osus:LocalOcorrenciaNascimento;
+		rr:template "http://200.19.182.252/resources/LocalOcorrenciaNascimento#{crypto_key}";
+	];
+	
+	rr:predicateObjectMap [
+			rr:predicate osus:tipoOcorrencia;
+			rr:objectMap [ rr:template "http://200.19.182.252/resources/TipoOcorrenciaNascimento#{tp_ocorrencia}" ];
+	];
+
+	.
+
+
+#########
+# PARTO #
+#########
+
+<#PartoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT 
+				MD5('sinasc' || retira_acentuacao(no_mae) || dt_nascimento::date || nu_dn) as crypto_key,
+				nu_dn, 
+
+				CASE 
+					WHEN tp_apresentacao in ('1', '2', '3') THEN tp_apresentacao
+					ELSE NULL
+				END tp_apresentacao,
+
+				CASE
+					WHEN tp_parto in ('1', '2') THEN tp_parto
+					ELSE NULL
+				END as tp_parto,
+
+				CASE
+					WHEN st_trabalho_parto = '1' THEN 'Sim'
+					WHEN st_trabalho_parto = '2' THEN 'Não'
+					ELSE NULL
+				END as st_trabalho_parto,
+
+				CASE 
+					WHEN st_cesarea_parto in ('1', '2', '3') THEN st_cesarea_parto
+					ELSE NULL
+				END as st_cesarea_parto
+
+			FROM 
+				sinasc_tb_dn
+			WHERE dt_nascimento is not null and nu_dn is not null and trim(no_mae) != '' and no_mae is not null
+		"""
+	];
+
+	rr:subjectMap [
+		rr:class osus:Parto;
+		rr:template "http://200.19.182.252/resources/Parto#{crypto_key}";
+	];
+	
+	
+	rr:predicateObjectMap [
+			rr:predicate osus:partoInduzido;
+			rr:objectMap [ rr:column '"st_trabalho_parto"'; ];
+	];
+		
+	rr:predicateObjectMap [
+        rr:predicate osus:nascimento;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/Nascimento#{crypto_key}" ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:gestacao;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/Gestacao#{crypto_key}" ];
+    ];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:tipoParto;
+		rr:objectMap [ rr:template "http://200.19.182.252/resources/TipoParto#{tp_parto}" ];
+	];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:tipoApresentacao;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/TipoApresentacao#{tp_apresentacao}" ];
+    ];
+
+	rr:predicateObjectMap [
+			rr:predicate osus:statusDaCesareaNoParto;
+			rr:objectMap [ rr:column '"st_cesarea_parto"'; ];
+	];
+    ### ????????????
+    #rr:predicateObjectMap [
+	#	rr:predicate osus:statusDaCesareaNoParto;
+		#rr:objectMap [ rr:column '"http://200.19.182.252/resources/StatusCesareaParto#{st_cesarea_parto}"'; ];
+	#];
+
+	.
+	
+
+##############
+# NASCIMENTO #
+##############
+
+<#NascimentoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT 
+				MD5('sinasc' || retira_acentuacao(no_mae) || dt_nascimento::date || nu_dn) as crypto_key, 
+				case
+					when nu_peso = 0 then null
+					else nu_peso
+				end as nu_peso, 
+				
+				nu_dn, 
+				
+				case 
+					when nu_apgar1 not in (0,1,2,3,4,5,6,7,8,9,10) then null
+					else nu_apgar1
+				end as nu_apgar1, 
+
+				case
+					when nu_apgar1 >= 0 and nu_apgar1 <= 2 then 'ComAsfixiaGrave'
+					when nu_apgar1 >= 3 and nu_apgar1 <= 4 then 'ComAsfixiaModerada'
+					when nu_apgar1 >= 5 and nu_apgar1 <= 7 then 'ComAsfixiaLeve'
+					when nu_apgar1 >= 8 and nu_apgar1 <= 10 then 'SemAsfixia'
+					else null
+				end as nu_apgar1_categoria,
+
+				case 
+					when nu_apgar5 not in (0,1,2,3,4,5,6,7,8,9,10) then null
+					else nu_apgar5
+				end as nu_apgar5, 
+
+
+				case
+					when nu_apgar5 >= 0 and nu_apgar5 <= 2 then 'ComAsfixiaGrave'
+					when nu_apgar5 >= 3 and nu_apgar5 <= 4 then 'ComAsfixiaModerada'
+					when nu_apgar5 >= 5 and nu_apgar5 <= 7 then 'ComAsfixiaLeve'
+					when nu_apgar5 >= 8 and nu_apgar5 <= 10 then 'SemAsfixia'
+					else null
+				end as nu_apgar5_categoria,
+				
+				CASE 
+					WHEN tp_nascimento_assistido in ('1', '2', '3', '4') THEN tp_nascimento_assistido
+					ELSE NULL
+				end tp_nascimento_assistido, 
+
+				CASE 
+					WHEN st_malformacao='1' THEN 'Sim'
+					WHEN st_malformacao='2' THEN 'Não'
+					ELSE NULL
+				END as st_malformacao
+				
+			FROM 
+				sinasc_tb_dn 
+			WHERE 
+				dt_nascimento is not null and nu_dn is not null and trim(no_mae) != '' and no_mae is not null
+		"""
+	] ;
+    
+    rr:subjectMap [
+    	rr:class osus:Nascimento;
+    	rr:template "http://200.19.182.252/resources/Nascimento#{crypto_key}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:apgarNoPrimeiroMinuto;
+        rr:objectMap [ 
+        	rr:column '"nu_apgar1"'; 
+        	rr:datatype xsd:integer;
+        ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:apgarNoPrimeiroMinutoCategoria;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/ClassificacaoApgar#{nu_apgar1_categoria}" ];
+    ];
+
+	rr:predicateObjectMap [
+        rr:predicate osus:apgarNoQuintoMinuto;
+        rr:objectMap [ 
+        	rr:column '"nu_apgar5"'; 
+        	rr:datatype xsd:integer;
+
+        ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:apgarNoQuintoMinutoCategoria;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/ClassificacaoApgar#{nu_apgar5_categoria}" ];
+    ];
+
+	rr:predicateObjectMap [
+        rr:predicate osus:pesoAoNascerEmGramas;
+        rr:objectMap [ 
+        	rr:column '"nu_peso"'; 
+        	rr:datatype xsd:integer;
+
+       	];
+    ];
+
+	rr:predicateObjectMap [
+        rr:predicate osus:temMalFormacao;
+        rr:objectMap [ rr:column '"st_malformacao"'; ];
+    ];
+    
+	rr:predicateObjectMap [
+		rr:predicate osus:localOcorrencia;
+		rr:objectMap [ rr:template "http://200.19.182.252/resources/LocalOcorrenciaNascimento#{crypto_key}"];
+	];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:teveAssistenciaDe;
+        rr:objectMap [ rr:template "http://200.19.182.252/resources/TipoAssistenciaAoNascimento#{tp_nascimento_assistido}" ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:parto;
+        rr:objectMap [ 
+        	rr:template "http://200.19.182.252/resources/Parto#{crypto_key}" 
+        ];
+    ];
+
+    .
+

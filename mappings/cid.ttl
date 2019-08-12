@@ -1,0 +1,83 @@
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix osus: <http://200.19.182.252/ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+#######
+# CID #
+#######
+
+#http://www.datasus.gov.br/cid10/V2008/cid10.htm
+<#SubcategoriasTriplesMap> 
+	rr:logicalTable [
+		rr:sqlQuery """
+		select   
+			subcat,
+		  	case 
+		  		when classif = '+' then 'Por etiologia'
+		  		when classif = '*' then 'Por manifestação'
+		  		else 'Não tem dupla classificação'
+		  	end as classif,
+		  	case 
+		  		when restrsexo = 'M' then 'Masculino'
+		  		when restrsexo = 'F' then 'Feminino'
+		  		else 'Não se aplica'
+		  	end as restrsexo,
+		  	case 
+		  		when causaobito = 'N' then 'Tem Pouca Probabilidade de Causar Óbito'
+		  		else 'Não há restrição'
+		  	end as causaobito,
+		  	descricao,
+		  	descrabrev
+  		from cid_10_subcategorias
+		"""
+	];
+
+	rr:subjectMap [
+		rr:class osus:SubcategoriaCID10;
+		rr:template "http://200.19.182.252/resources/CID#{subcat}";
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate osus:codigoSubcategoriaCID10;
+		rr:objectMap [
+			rr:column '"subcat"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:situacaoSubCategoriaCID10;
+		rr:objectMap [
+			rr:column '"classif"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:resticaoDeSexoSubcategoriaCID10;
+		rr:objectMap [
+			rr:column '"restrsexo"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:descricaoSubcategoriaCID10;
+		rr:objectMap [
+			rr:column '"descricao"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:descricaoAbreviadaSubcategoriaCID10;
+		rr:objectMap [
+			rr:column '"descrabrev"';
+		];
+	];
+	.
+
+# TODO excluidos
+# TODO refer
+
+
+

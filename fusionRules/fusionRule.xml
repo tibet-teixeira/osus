@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"  ?>
+<Sieve xmlns="http://www4.wiwiss.fu-berlin.de/ldif/">
+    <Prefixes>
+        <Prefix id="ldif" namespace="http://www4.wiwiss.fu-berlin.de/ldif/"/>
+        <Prefix id="sieve" namespace="http://sieve.wbsg.de/vocab/"/>
+        <Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        <Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#"/>
+        <Prefix id="owl" namespace="http://www.w3.org/2002/07/owl#"/>
+        <Prefix id="osus" namespace="http://200.19.182.252/ontology#"/>
+    </Prefixes>
+
+    <QualityAssessment>
+        <AssessmentMetric id="sieve:sinascMelhor">
+            <ScoringFunction class="ScoredList">
+                <Param name="list" value="sinasc.ttl sim.ttl esus.ttl"/>
+            </ScoringFunction>
+        </AssessmentMetric>
+
+        <AssessmentMetric id="sieve:simMelhor">
+            <ScoringFunction class="ScoredList">
+                <Param name="list" value="sim.ttl sinasc.ttl esus.ttl"/>
+            </ScoringFunction>
+        </AssessmentMetric>   
+          
+        <AssessmentMetric id="sieve:esusMelhor">
+            <ScoringFunction class="ScoredList">
+                <Param name="list" value="esus.ttl sinasc.ttl sim.ttl"/>
+            </ScoringFunction>
+        </AssessmentMetric>
+    </QualityAssessment>
+
+    <Fusion>
+        <Class name="osus:Pessoa">
+            <Property name="osus:municipioDeNascimento">
+                <FusionFunction class="KeepFirst" metric="sieve:sinascMelhor" />
+            </Property>
+
+            <Property name="osus:temMae">
+                <FusionFunction class="KeepFirst" metric="sieve:sinascMelhor" />
+            </Property>
+
+            <Property name="osus:informacoesNascimento">
+                <FusionFunction class="KeepFirst" metric="sieve:sinascMelhor" />
+            </Property>
+
+            <Property name="osus:dataNascimento">
+                <FusionFunction class="KeepFirst" metric="sieve:sinascMelhor" />
+            </Property>
+
+            <Property name="osus:horaNascimento">
+                <FusionFunction class="KeepFirst" metric="sieve:sinascMelhor" />
+            </Property>
+
+            <Property name="osus:numeroDeclaracaoDeNascidoVivo">
+                <FusionFunction class="KeepFirst" metric="sieve:sinascMelhor" />
+            </Property>
+
+            <Property name="osus:nomeDoPai">
+                <FusionFunction class="KeepFirst" metric="sieve:sinascMelhor" />
+            </Property>
+
+            <Property name="osus:idadeDoPai">
+                <FusionFunction class="KeepFirst" metric="sieve:sinascMelhor" />
+            </Property>
+
+            <Property name="osus:numeroDeclaracaoDeObito">
+                <FusionFunction class="KeepFirst" metric="sieve:simMelhor" />
+            </Property>
+
+            <Property name="osus:idade">
+                <FusionFunction class="KeepFirst" metric="sieve:simMelhor" />
+            </Property>
+
+            <Property name="osus:quantidadeDiasVividos">
+                <FusionFunction class="KeepFirst" metric="sieve:simMelhor" />
+            </Property>
+
+            <Property name="osus:nomeCompleto">
+                <FusionFunction class="KeepFirst" metric="sieve:esusMelhor" />
+            </Property>
+
+            <Property name="osus:sexoBiologico">
+                <FusionFunction class="KeepFirst" metric="sieve:simMelhor" />
+            </Property>
+
+            <Property name="osus:temRacaCor">
+                <FusionFunction class="KeepFirst" metric="sieve:simMelhor" />
+            </Property>
+
+            <Property name="osus:temEstadoCivil">
+                <FusionFunction class="KeepFirst" metric="sieve:esusMelhor" />
+            </Property>
+
+            <Property name="osus:temOcupacao">
+                <FusionFunction class="KeepFirst" metric="sieve:esusMelhor" />
+            </Property>
+
+            <Property name="osus:obito">
+                <FusionFunction class="KeepFirst" metric="sieve:simMelhor" />
+            </Property>
+
+            <Property name="osus:cns">
+                <FusionFunction class="KeepFirst" metric="sieve:esusMelhor" />
+            </Property>
+
+            <Property name="osus:possuiCDSCadastro">
+                <FusionFunction class="KeepFirst" metric="sieve:esusMelhor" />
+            </Property>
+        </Class>
+    </Fusion>
+</Sieve>

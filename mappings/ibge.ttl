@@ -1,0 +1,129 @@
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix osus: <http://200.19.182.252/ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+##############
+# MUNICIPIOS #
+##############
+<#MunicipiosTriplesMap> 
+	rr:logicalTable [
+		rr:sqlQuery """
+		select 
+			substring(codigo_ibge::text,1,6) as d6, 
+			codigo_ibge::text as d7, 
+			nome, 
+			latitude, 
+			longitude, 
+			codigo_uf 
+		from municipios
+		"""
+	];
+
+	rr:subjectMap [
+		rr:class osus:Municipio;
+		rr:template "http://200.19.182.252/resources/Municipio#{d6}";
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate osus:codigoIBGE, osus:codigoIBGE-6Digitos;
+		rr:objectMap [
+			rr:column '"d6"';
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate osus:codigoIBGE, osus:codigoIBGE-7Digitos;
+		rr:objectMap [
+			rr:column '"d7"';
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate osus:nomeDoMunicipio;
+		rr:objectMap [
+			rr:column '"nome"';
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate osus:latitude;
+		rr:objectMap [
+			rr:column '"latitude"';
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate osus:longitude;
+		rr:objectMap [
+			rr:column '"longitude"';
+		];
+	];
+
+	rr:predicateObjectMap [
+		rr:predicate osus:unidadeFederativa;
+		rr:objectMap [
+			rr:template "http://200.19.182.252/resources/UnidadeFederativa#{codigo_uf}";
+		];
+	];
+	.
+
+
+<#CapitalTriplesMap> 
+	rr:logicalTable [
+		rr:sqlQuery """
+		select 
+			substring(codigo_ibge::text,1,6) as d6, 
+			codigo_uf 
+		from municipios
+		where capital = true
+		"""
+	];
+	rr:subjectMap [
+		rr:class osus:Capital;
+		rr:template "http://200.19.182.252/resources/Municipio#{d6}";
+	];
+	rr:predicateObjectMap [
+		rr:predicate osus:capitalDe;
+		rr:objectMap [
+			rr:template "http://200.19.182.252/resources/UnidadeFederativa#{codigo_uf}";
+		];
+	];
+
+	.
+
+
+<#UnidadeFederativaTriplesMap> 
+	rr:logicalTable [
+		rr:sqlQuery """
+		select
+			codigo_uf,
+			uf,
+			nome
+		from estados
+		"""
+	];
+
+	rr:subjectMap [
+		rr:class osus:UnidadeFederativa;
+		rr:template "http://200.19.182.252/resources/UnidadeFederativa#{codigo_uf}";
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate osus:codigoIBGE;
+		rr:objectMap [
+			rr:column '"codigo_uf"';
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate osus:nomeUF;
+		rr:objectMap [
+			rr:column '"nome"';
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate osus:siglaUF;
+		rr:objectMap [
+			rr:column '"uf"';
+		];
+	];
+	
+	.

@@ -1,0 +1,506 @@
+@prefix map: <#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix osus: <http://200.19.182.252/ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+############
+# RACA COR #
+############
+
+<#RacaCorTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1,'Branca'), 
+					(2,'Preta'), 
+					(3,'Amarela'), 
+					(4,'Parda'), 
+					(5,'Indígena')
+
+			) as raca_cor_tab(codigo_raca_cor, label_raca_cor)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:RacaCor;
+    	rr:template "http://200.19.182.252/resources/RacaCor#{codigo_raca_cor}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoRacaCor;
+        rr:objectMap [ rr:column '"codigo_raca_cor"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelRacaCor;
+        rr:objectMap [ rr:column '"label_raca_cor"'; ];
+    ];
+
+    .
+
+
+#################
+# TIPO GRAVIDEZ #
+#################
+
+<#TipoGravidezTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1,'Unica'), 
+					(2,'Dupla'), 
+					(3,'Tripla ou mais')
+
+			) as tipo_gravidez_tab(codigo_tipo_gravidez, label_tipo_gravidez)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TipoGravidez;
+    	rr:template "http://200.19.182.252/resources/TipoGravidez#{codigo_tipo_gravidez}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTipoGravidez;
+        rr:objectMap [ rr:column '"codigo_tipo_gravidez"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTipoGravidez;
+        rr:objectMap [ rr:column '"label_tipo_gravidez"'; ];
+    ];
+
+    .
+
+#####################
+# TEMPO DE GESTACAO #
+#####################
+
+<#TempoGestacaoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1, 'Menos de 22 semanas'), 
+					(2, 'De 22 a 27 semanas'), 
+					(3, 'De 28 a 31 semanas'), 
+					(4, 'De 32 a 36 semanas'), 
+					(5, 'De 37 a 41 semanas'),
+					(6, '42 ou mais semanas')
+
+			) as tempo_gestacao_tab(codigo_tempo_gestacao, label_tempo_gestacao)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TempoGestacao;
+    	rr:template "http://200.19.182.252/resources/TempoGestacao#{codigo_tempo_gestacao}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTempoGestacao;
+        rr:objectMap [ rr:column '"codigo_tempo_gestacao"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTempoGestacao;
+        rr:objectMap [ rr:column '"label_tempo_gestacao"'; ];
+    ];
+
+    .
+
+##############################
+# Tipo Ocorrencia Nascimento #
+##############################
+
+<#TipoOcorrenciaNascimentoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1, 'Hospital'), 
+					(2, 'Outros Estabelecimentos de Saúde'), 
+					(3, 'Domicilio'), 
+					(4, 'Outros') 
+			) as tipo_ocorrencia_nascimento_tab(codigo_tipo_ocorrencia_nascimento, label_tipo_ocorrencia_nascimento)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TipoOcorrenciaNascimento;
+    	rr:template "http://200.19.182.252/resources/TipoOcorrenciaNascimento#{codigo_tipo_ocorrencia_nascimento}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTipoOcorrenciaNascimento;
+        rr:objectMap [ rr:column '"codigo_tipo_ocorrencia_nascimento"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTipoOcorrenciaNascimento;
+        rr:objectMap [ rr:column '"label_tipo_ocorrencia_nascimento"'; ];
+    ];
+
+    .
+
+
+##############################
+# Tipo Ocorrencia Obito #
+##############################
+
+<#TipoOcorrenciaObitoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1, 'Hospital'), 
+					(2, 'Outros Estabelecimentos de Saude'), 
+					(3, 'Domicilio'),
+					(4, 'Via Publica'), 
+					(5, 'Outros') 
+			) as tipo_ocorrencia_obito_tab(codigo_tipo_ocorrencia_obito, label_tipo_ocorrencia_obito)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TipoOcorrenciaObito;
+    	rr:template "http://200.19.182.252/resources/TipoOcorrenciaObito#{codigo_tipo_ocorrencia_obito}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTipoOcorrenciaObito;
+        rr:objectMap [ rr:column '"codigo_tipo_ocorrencia_obito"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTipoOcorrenciaObito;
+        rr:objectMap [ rr:column '"label_tipo_ocorrencia_obito"'; ];
+    ];
+
+    .
+
+
+##############
+# TIPO PARTO #
+##############
+
+<#TipoPartoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1, 'Vaginal'), 
+					(2, 'Cesareo')
+			) as tipo_parto_tab(codigo_tipo_parto, label_tipo_parto)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TipoParto;
+    	rr:template "http://200.19.182.252/resources/TipoParto#{codigo_tipo_parto}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTipoParto;
+        rr:objectMap [ rr:column '"codigo_tipo_parto"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTipoParto;
+        rr:objectMap [ rr:column '"label_tipo_parto"'; ];
+    ];
+
+    .
+
+################
+# GRUPO ROBSON #
+################
+
+
+<#GrupoRobsonTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1, 'Grupo 1'), 
+					(2, 'Grupo 2'),
+					(3, 'Grupo 3'),
+					(4, 'Grupo 4'),
+					(5, 'Grupo 5'),
+					(6, 'Grupo 6'),
+					(7, 'Grupo 7'),
+					(8, 'Grupo 8'),
+					(9, 'Grupo 9'),
+					(10, 'Grupo 10')
+			) as grupo_robson_tab(codigo_grupo_robson, label_grupo_robson)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:GrupoRobson;
+    	rr:template "http://200.19.182.252/resources/GrupoRobson#{codigo_grupo_robson}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoGrupoRobson;
+        rr:objectMap [ rr:column '"codigo_grupo_robson"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelGrupoRobson;
+        rr:objectMap [ rr:column '"label_grupo_robson"'; ];
+    ];
+
+    .
+
+
+##############
+# TIPO PARTO #
+##############
+
+<#TipoApresentacaoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1, 'Cefalica'), 
+					(2, 'Pelvica ou Podalica'),
+					(3, 'Transversa ou Cornica')
+			) as tipo_apresentacao_tab(codigo_tipo_apresentacao, label_tipo_apresentacao)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TipoApresentacao;
+    	rr:template "http://200.19.182.252/resources/TipoApresentacao#{codigo_tipo_apresentacao}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTipoApresentacao;
+        rr:objectMap [ rr:column '"codigo_tipo_apresentacao"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTipoApresentacao;
+        rr:objectMap [ rr:column '"label_tipo_apresentacao"'; ];
+    ];
+
+    .
+
+
+
+
+
+
+############################
+# NASCIMENTO ASSISTIDO POR #
+############################
+
+<#TipoAssistenciaAoNascimentoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1, 'Medico'), 
+					(2, 'Enfermeira'),
+					(3, 'Parteira'),
+					(4, 'Outros')
+			) as tp_nascimento_assistido_tab(codigo_tp_nascimento_assistido, label_tp_nascimento_assistido)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TipoAssistenciaAoNascimento;
+    	rr:template "http://200.19.182.252/resources/TipoAssistenciaAoNascimento#{codigo_tp_nascimento_assistido}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTipoAssistenciaAoNascimento;
+        rr:objectMap [ rr:column '"codigo_tp_nascimento_assistido"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTipoAssistenciaAoNascimento;
+        rr:objectMap [ rr:column '"label_tp_nascimento_assistido"'; ];
+    ];
+
+    .
+
+
+
+################
+# ESTADO CIVIL #
+################
+
+<#EstadoCivilTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1,'Solteiro(a)'), 
+					(2,'Casado(a)'), 
+					(3,'Viuvo(a)'), 
+					(4,'Separado(a) Judicialmente / Divorciado(a)'), 
+					(5,'União Estavel')
+
+			) as estado_civil_tab(codigo_estado_civil, label_estado_civil)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:EstadoCivil;
+    	rr:template "http://200.19.182.252/resources/EstadoCivil#{codigo_estado_civil}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoEstadoCivil;
+        rr:objectMap [ rr:column '"codigo_estado_civil"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelEstadoCivil;
+        rr:objectMap [ rr:column '"label_estado_civil"'; ];
+    ];
+
+    .
+
+
+##############
+# TIPO OBITO #
+##############
+
+<#TipoObitoTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1,'Fetal'), 
+					(2,'Não Fetal')
+
+			) as tipo_obito_tab(codigo_tipo_obito, label_tipo_obito)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TipoObito;
+    	rr:template "http://200.19.182.252/resources/TipoObito#{codigo_tipo_obito}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTipoObito;
+        rr:objectMap [ rr:column '"codigo_tipo_obito"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTipoObito;
+        rr:objectMap [ rr:column '"label_tipo_obito"'; ];
+    ];
+
+    .
+
+######################
+# ClassificacaoApgar #
+######################
+
+<#ClassificacaoApgarTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					('ComAsfixiaGrave', 'Com Asfixia Grave'),
+					('ComAsfixiaModerada', 'Com Asfixia Moderada'),
+					('ComAsfixiaLeve', 'Com Asfixia Leve'),
+					('SemAsfixia', 'Sem Asfixia')
+					
+
+			) as classificacao_apgar_tab(codigo_classificacao_apgar, label_classificacao_apgar)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:ClassificacaoApgar;
+    	rr:template "http://200.19.182.252/resources/ClassificacaoApgar#{codigo_classificacao_apgar}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoClassificacaoApgar;
+        rr:objectMap [ rr:column '"codigo_classificacao_apgar"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelClassificacaoApgar;
+        rr:objectMap [ rr:column '"label_classificacao_apgar"'; ];
+    ];
+
+    .
+
+
+############################
+# TIPO MORTE NAO ACIDENTAL #
+############################
+
+<#TipoMorteNaoAcidentalTriplesMap>
+	rr:logicalTable [
+		rr:sqlQuery """
+			SELECT * 
+			FROM (
+				VALUES 
+					(1,'Acidente'), 
+					(2,'Suicidio'), 
+					(3,'Homicidio'), 
+					(4,'Outros')
+
+			) as tipo_morte_nao_acidental_tab(codigo_tipo_morte_nao_acidental, label_tipo_morte_nao_acidental)
+		"""
+	];
+    
+    rr:subjectMap [
+    	rr:class osus:TipoMorteNaoNatural;
+    	rr:template "http://200.19.182.252/resources/TipoMorteNaoNatural#{codigo_tipo_morte_nao_acidental}";
+    ];
+	
+	rr:predicateObjectMap [
+        rr:predicate osus:codigoTipoMorteNaoNatural;
+        rr:objectMap [ rr:column '"codigo_tipo_morte_nao_acidental"'; ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate osus:labelTipoMorteNaoNatural;
+        rr:objectMap [ rr:column '"label_tipo_morte_nao_acidental"'; ];
+    ];
+
+    .
+
+
+
+
+
+
+################
+# ESCOLARIDADE #
+################
+
+
+    
+
+##################################
+# STATUS CESAREA DURANTE O PARTO #
+##################################
+
+
